@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="style.css" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="bootstrap/dist/js/bootstrap.min.js" ></script>
+        <title>Music Control</title>
+    </head>
+
+    <body><section class="body">
+        <div class="wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="page col-md-8 col-md-offset-2">
+                        <h1>Music Control</h1>
+                        <hr>
+                        <p>Use the slider to change the volume. If no music is heard, check wether the iPod is turned on.</p>
+                    </div>
+                </row>
+                <row>
+                    <div class="page col-md-8 col-md-offset-2">
+                        <h3>BeoSound | Entree </h3>
+                        <hr>
+                        <h3>Volume <span id="demo"></span></h3>
+                        <input type="range" min="1" max="90" class="slider" id="volume">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section></body>
+
+    <script>
+        var slider = document.getElementById("volume");
+        var output = document.getElementById("demo");
+        var getUrl = "getVolume";
+        var volume = 67;
+
+        function getVolume() {
+            $.get(getUrl,function(data, status) {
+                console.log(data);
+                volume = data;
+                output.innerHTML = data;
+                $('#volume').val(volume);
+            });
+        }
+
+        getVolume();
+        var poller = setInterval(getVolume, 1000);
+
+        slider.oninput = function() {
+            setUrl = "setVolume?volume=" + slider.value;
+            console.log(setUrl);
+            $.get(setUrl,function(data, status) {
+                console.log(data);
+            });
+            output.innerHTML = slider.value;
+        }
+
+    </script>
+</html>

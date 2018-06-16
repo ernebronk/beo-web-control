@@ -1,0 +1,13 @@
+{
+    "name": "music_control_app",
+    "description": "Bang & Olufsen Web Music Conroller",
+    "dependencies" :
+        {
+            "bootstrap" : "3.3.7",
+            "express": "latest",
+            "request": "latest"
+        },
+    "scripts": {
+            "start": "node server.js"
+        }
+}
