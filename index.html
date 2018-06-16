@@ -2,7 +2,6 @@
     <head>
         <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" >
         <link rel="stylesheet" href="style.css" >
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="bootstrap/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
@@ -33,9 +32,6 @@
     </section></body>
 
     <script>
-
-
-
         var app = new Vue({
             el: "#app",
             data: {
@@ -54,33 +50,5 @@
                 })
             }
         })
-
-
-        // var slider = document.getElementById("volume");
-        // var output = document.getElementById("demo");
-        // var getUrl = "getVolume";
-        // var volume = 67;
-        //
-        // function getVolume() {
-        //     $.get(getUrl,function(data, status) {
-        //         console.log(data);
-        //         volume = data;
-        //         output.innerHTML = data;
-        //         $('#volume').val(volume);
-        //     });
-        // }
-        //
-        // getVolume();
-        // var poller = setInterval(getVolume, 1000);
-        //
-        // slider.oninput = function() {
-        //     setUrl = "setVolume?volume=" + slider.value;
-        //     console.log(setUrl);
-        //     $.get(setUrl,function(data, status) {
-        //         console.log(data);
-        //     });
-        //     output.innerHTML = slider.value;
-        // }
-
     </script>
 </html>
