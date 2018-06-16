@@ -5,6 +5,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="bootstrap/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
         <title>Music Control</title>
     </head>
 
@@ -38,12 +39,19 @@
         var app = new Vue({
             el: "#app",
             data: {
-                volume: 20
+                volume: 0
             },
             methods: {
                 changeVolume: function(slider) {
-                    this.volume = slider.target.value
+                    this.$http.get("/setVolume", {"params":{"volume":slider.target.value}}).then(function(response) {
+                        this.volume = slider.target.value;
+                    });
                 }
+            },
+            beforeMount: function () {
+                this.$http.get("/getVolume").then(function(response) {
+                    this.volume = response.body
+                })
             }
         })
 
