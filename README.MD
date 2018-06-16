@@ -4,13 +4,15 @@ This application allows you to control the volume of Bang & Olufsen NL products 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The application runs in  a docker image.
 
 ### Development
 ```
-git clone
+git clone https://github.com/ernebronk/beo-web-control.git
 docker-compose up
 ```
+
+Visit http://localhost:9001
 
 ### Production
 
@@ -18,6 +20,9 @@ docker-compose up
 docker build -t music_server .
 docker run -p 9001:9001 -d --name music_server music_server
 ```
+
+Visit http://localhost:9001
+
 
 ## Authors
 
