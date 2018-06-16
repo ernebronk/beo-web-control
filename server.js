@@ -6,9 +6,12 @@ const app = express()
 
 
 var hosts = require("./hosts.json").hosts
-var volume = 67;
+var volume = 30;
+const DEBUG = true;
 
 function updateVolume(host, volume) {
+    console.log("[" + host + "] : " + volume)
+    if(DEBUG){return};
     var url = 'http://' + host + '/api/setData?path=BeoSound:/setVolume&roles=activate&value={"type":"beoSoundVolumeData","beoSoundVolumeData":{"volume":' + volume + ',"volumeSource":"website"}}';
     request.get(url,function(err,res,body){
         if(err) {
