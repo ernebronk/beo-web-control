@@ -8,6 +8,6 @@ services:
         volumes:
             - "./:/home/node/app:cached"
         ports:
-            - "9001:9001"
+            - "9001:80"
         command: "npm start"
         restart: always

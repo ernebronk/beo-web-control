@@ -33,9 +33,9 @@ app.get('/', function (req, res) {
 });
 
 
-server.listen(9001, function() {
+server.listen(80, function() {
     console.log("-- Starting webserver..")
-    console.log('-- Server running on port 9001')
+    console.log('-- Server running..')
     updateVolume(hosts[0], volume);
 });
 

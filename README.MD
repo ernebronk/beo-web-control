@@ -21,7 +21,7 @@ Visit http://localhost:9001
 git clone https://github.com/ernebronk/beo-web-control.git
 npm install
 docker build -t music_server .
-docker run -p 9001:9001 -d --name music_server music_server
+docker run -p 80:9001 -d --name music_server music_server
 ```
 
 Visit http://localhost:9001
