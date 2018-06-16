@@ -6,6 +6,8 @@
         <script src="bootstrap/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>Music Control</title>
     </head>
 
@@ -33,6 +35,12 @@
     </section></body>
 
     <script>
+
+        var socket = io.connect();
+        socket.on('volumeUpdate', function(data) {
+            app.volume = data;
+        });
+
         var app = new Vue({
             el: "#app",
             data: {
@@ -40,16 +48,10 @@
             },
             methods: {
                 changeVolume: function(slider) {
-                    this.$http.get("/setVolume", {"params":{"volume":slider.target.value}}).then(function(response) {
-                        this.volume = slider.target.value;
-                    });
+                    app.volume = slider.target.value
+                    socket.emit('reqUpdateVolume', slider.target.value)
                 }
             },
-            beforeMount: function () {
-                this.$http.get("/getVolume").then(function(response) {
-                    this.volume = response.body
-                })
-            }
         })
     </script>
 </html>

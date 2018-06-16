@@ -2,7 +2,10 @@ const express = require('express')
 var path    = require("path");
 var request = require('request');
 var url = require('url');
-const app = express()
+var http = require('http');
+const app = module.exports.app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
 
 var hosts = require("./hosts.json").hosts
@@ -29,19 +32,19 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-app.get('/setVolume', function(req, res) {
-    var url_parts = url.parse(req.url, true);
-    volume = url_parts.query.volume;
-    updateVolume(hosts[0], volume);
-    return res.send(volume.toString());
-})
 
-app.get('/getVolume', function(req, res) {
-    return res.send(volume.toString());
-})
-
-app.listen(9001, function() {
+server.listen(9001, function() {
     console.log("-- Starting webserver..")
     console.log('-- Server running on port 9001')
     updateVolume(hosts[0], volume);
 });
+
+
+io.sockets.on('connection', function(socket) {
+    socket.emit("volumeUpdate", volume)
+    socket.on('reqUpdateVolume', function(data) {
+        socket.broadcast.emit('volumeUpdate', data)
+        console.log("[SERVER] VolumeRequest: " + data )
+    })
+    console.log("[SERVER] NewClient ("+socket.handshake.address+")")
+})
