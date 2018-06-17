@@ -3,11 +3,12 @@
     "description": "Bang & Olufsen Web Music Conroller",
     "dependencies": {
         "bootstrap": "3.3.7",
-        "express": "latest",
-        "request": "latest",
+        "express": "^4.16.3",
+        "nodemon": "latest",
+        "request": "^2.87.0",
         "socket.io": "latest"
     },
     "scripts": {
-        "start": "node server.js"
+        "start": "npm install && nodemon server.js"
     }
 }

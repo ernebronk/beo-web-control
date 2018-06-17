@@ -12,8 +12,15 @@ var devices = require("./hosts.json").devices
 var volume = 30;
 const DEBUG = true;
 
-function updateVolume(device, volume) {
-    console.log("[" + device.ip + "] : " + volume)
+function updateDevices(data) {
+    devices = data;
+    for (var i in devices) {
+        updateVolume(devices[i])
+    }
+}
+
+function updateVolume(device) {
+    console.log("[" + device.ip + "] : " + device.volume)
     if(DEBUG){return};
     var url = 'http://' + device.ip + '/api/setData?path=BeoSound:/setVolume&roles=activate&value={"type":"beoSoundVolumeData","beoSoundVolumeData":{"volume":' + device.volume + ',"volumeSource":"website"}}';
     request.get(url,function(err,res,body){
@@ -46,7 +53,7 @@ server.listen(80, function() {
 io.sockets.on('connection', function(socket) {
     socket.emit("devices", devices)
     socket.on("update", function(data) {
-        this.devices = data
+        updateDevices(data)
         socket.broadcast.emit('devices', data)
         console.log("[SERVER] device update received")
     })
