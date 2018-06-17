@@ -9,7 +9,6 @@ The application runs in  a docker image.
 ### Development
 ```
 git clone https://github.com/ernebronk/beo-web-control.git
-npm install
 docker-compose up
 ```
 
