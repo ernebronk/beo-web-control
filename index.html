@@ -20,13 +20,13 @@
                         <hr>
                         <p>Use the slider to change the volume. If no music is heard, check wether the iPod is turned on.</p>
                     </div>
-                </row>
-                <row>
-                    <div id="app" class="page col-md-8 col-md-offset-2">
-                        <h3>BeoSound | Entree </h3>
+                </div>
+                <div class="row" id="app">
+                    <div v-for="device in devices" class="page col-md-8 col-md-offset-2">
+                        <h3>{{device.name}} </h3>
                         <hr>
-                        <h3>Volume <span id="demo">{{volume}}</span></h3>
-                        <input v-on:input="changeVolume" type="range" min="1" max="90" class="slider" id="volume" v-bind:value="volume">
+                        <h3>Volume <span id="demo">{{device.volume}}</span></h3>
+                        <input v-on:input="update" type="range" min="1" max="90" class="slider" id="volume" v-model:value="device.volume">
                     </div>
 
                 </div>
@@ -35,23 +35,22 @@
     </section></body>
 
     <script>
-
-        var socket = io.connect();
-        socket.on('volumeUpdate', function(data) {
-            app.volume = data;
-        });
-
         var app = new Vue({
             el: "#app",
             data: {
+                devices: [],
                 volume: 0
             },
             methods: {
-                changeVolume: function(slider) {
-                    app.volume = slider.target.value
-                    socket.emit('reqUpdateVolume', slider.target.value)
+                update: function() {
+                    socket.emit('update', this.devices)
                 }
             },
         })
+
+        var socket = io.connect();
+        socket.on('devices', function(data) {
+            app.devices = data;
+        });
     </script>
 </html>

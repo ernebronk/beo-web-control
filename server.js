@@ -8,14 +8,14 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 
-var hosts = require("./hosts.json").hosts
+var devices = require("./hosts.json").devices
 var volume = 30;
 const DEBUG = true;
 
-function updateVolume(host, volume) {
-    console.log("[" + host + "] : " + volume)
+function updateVolume(device, volume) {
+    console.log("[" + device.ip + "] : " + volume)
     if(DEBUG){return};
-    var url = 'http://' + host + '/api/setData?path=BeoSound:/setVolume&roles=activate&value={"type":"beoSoundVolumeData","beoSoundVolumeData":{"volume":' + volume + ',"volumeSource":"website"}}';
+    var url = 'http://' + device.ip + '/api/setData?path=BeoSound:/setVolume&roles=activate&value={"type":"beoSoundVolumeData","beoSoundVolumeData":{"volume":' + device.volume + ',"volumeSource":"website"}}';
     request.get(url,function(err,res,body){
         if(err) {
             return console.log("Error while loading: " + url);
@@ -32,19 +32,23 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname+'/index.html'));
 });
 
+app.get('/devices', function (req, res) {
+    res.json(devices);
+});
 
 server.listen(80, function() {
     console.log("-- Starting webserver..")
     console.log('-- Server running..')
-    updateVolume(hosts[0], volume);
+    updateVolume(devices[0], volume);
 });
 
 
 io.sockets.on('connection', function(socket) {
-    socket.emit("volumeUpdate", volume)
-    socket.on('reqUpdateVolume', function(data) {
-        socket.broadcast.emit('volumeUpdate', data)
-        console.log("[SERVER] VolumeRequest: " + data )
+    socket.emit("devices", devices)
+    socket.on("update", function(data) {
+        this.devices = data
+        socket.broadcast.emit('devices', data)
+        console.log("[SERVER] device update received")
     })
     console.log("[SERVER] NewClient ("+socket.handshake.address+")")
 })
