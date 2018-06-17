@@ -9,6 +9,7 @@ The application runs in  a docker image.
 ### Development
 ```
 git clone https://github.com/ernebronk/beo-web-control.git
+cd beo-web-control
 docker-compose up
 ```
 
@@ -18,6 +19,7 @@ Visit http://localhost:9001
 
 ```
 git clone https://github.com/ernebronk/beo-web-control.git
+cd beo-web-control
 npm install
 docker build -t music_server .
 docker run -p 80:9001 -d --name music_server music_server
