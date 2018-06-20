@@ -1,12 +1,5 @@
 <html>
     <head>
-        <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" >
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="style.css" >
-        <script src="bootstrap/dist/js/bootstrap.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-        <script src="/socket.io/socket.io.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>Music Control</title>
     </head>
@@ -33,24 +26,4 @@
             </div>
         </div>
     </section></body>
-
-    <script>
-        var app = new Vue({
-            el: "#app",
-            data: {
-                devices: [],
-                volume: 0
-            },
-            methods: {
-                update: function() {
-                    socket.emit('update', this.devices)
-                }
-            },
-        })
-
-        var socket = io.connect();
-        socket.on('devices', function(data) {
-            app.devices = data;
-        });
-    </script>
 </html>

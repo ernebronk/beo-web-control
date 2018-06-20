@@ -43,7 +43,7 @@ app.get('/devices', function (req, res) {
     res.json(devices);
 });
 
-server.listen(80, function() {
+server.listen(8888, function() {
     console.log("-- Starting webserver..")
     console.log('-- Server running..')
     updateVolume(devices[0], volume);
