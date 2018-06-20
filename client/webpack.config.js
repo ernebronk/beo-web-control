@@ -2,7 +2,6 @@
 var webpack = require('webpack');
 
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
 
 
 const htmlPlugin = new HtmlWebPackPlugin({

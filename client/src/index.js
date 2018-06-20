@@ -20,7 +20,7 @@ var app = new Vue({
     },
 })
 
-var socket = io.connect("http://localhost:8888");
+var socket = io.connect();
 socket.on('devices', function(data) {
     app.devices = data;
 });
