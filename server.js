@@ -31,12 +31,11 @@ function updateVolume(device) {
 }
 
 app.set('view engine', 'html');
-app.use(express.static('node_modules'))
-app.use(express.static('public'))
+app.use(express.static('client/dist'))
 
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname+'/index.html'));
+    res.sendFile(path.join(__dirname+'/client/dist/index.html'));
 });
 
 app.get('/devices', function (req, res) {

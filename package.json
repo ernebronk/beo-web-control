@@ -1,14 +1,14 @@
 {
     "name": "music_control_app",
     "description": "Bang & Olufsen Web Music Conroller",
+    "private": true,
     "dependencies": {
-        "bootstrap": "3.3.7",
         "express": "^4.16.3",
         "nodemon": "latest",
         "request": "^2.87.0",
         "socket.io": "latest"
     },
     "scripts": {
-        "start": "npm install && nodemon server.js"
+        "start": "cd client && npm install && npm run build && cd .. && npm install && nodemon server.js"
     }
 }
