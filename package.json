@@ -9,6 +9,6 @@
         "socket.io": "latest"
     },
     "scripts": {
-        "start": "npm install && nodemon server.js"
+        "start": "cd client && npm install && npm run build && cd .. && npm install && nodemon server.js"
     }
 }
